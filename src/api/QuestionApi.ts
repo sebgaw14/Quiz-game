@@ -1,4 +1,4 @@
-import {Question} from "../Question";
+import {Question} from "../model/Question";
 import axios from "axios";
 
 export class QuestionApi {
@@ -6,13 +6,14 @@ export class QuestionApi {
 
         const displayErrorMessage = (response: number) => {
             switch (response) {
-                case 1: console.error("No Results Could not return results. The API doesn't have enough questions for your query. ")
+                case 1: console.error("No Results. Could not return results. The API doesn't have enough questions for your query. ")
                     break
                 case 2: console.error("Invalid Parameter. Contains an invalid parameter. Arguments passed in aren't valid.")
                     break
-                case 3: console.error("Token Not Found Session Token does not exist.")
+                case 3: console.error("Token Not Found. Session Token does not exist.")
                     break
-                case 4: console.error("Token Empty Session Token has returned all possible questions for the specified query. Resetting the Token is necessary.")
+                case 4: console.error("Token Empty. Session Token has returned all possible questions for the specified query. Resetting the Token is necessary.")
+                    break
             }
         }
 
@@ -24,6 +25,7 @@ export class QuestionApi {
             }
         })
             .then(response => {
+                console.log(response);
                 if (response.data.response_code !== 0) {
                     displayErrorMessage(response.data.response_code)
                 }
